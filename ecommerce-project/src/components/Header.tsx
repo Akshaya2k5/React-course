@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, type SetStateAction } from 'react';
 import { NavLink, useNavigate, useSearchParams } from 'react-router';
 import CartIcon from '../assets/images/icons/cart-icon.png';
 import SearchIcon from '../assets/images/icons/search-icon.png';
@@ -6,7 +6,13 @@ import LogoWhite from '../assets/images/logo-white.png';
 import MobileLogoWhite from '../assets/images/mobile-logo-white.png';
 import './Header.css';
 
-export function Header({ cart }) {
+export function Header({ cart }: {
+  cart: {
+    productId: string;
+    quantity: number;
+    deliveryOptionId: string;
+  }[];
+}) {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -14,7 +20,7 @@ export function Header({ cart }) {
 
   const [search, setSearch] = useState(searchText || '');
 
-  const updateSearchInput = (event) => {
+  const updateSearchInput = (event: { target: { value: SetStateAction<string>; }; }) => {
     setSearch(event.target.value);
   };
 
